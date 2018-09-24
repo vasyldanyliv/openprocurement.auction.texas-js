@@ -13,13 +13,12 @@ const store =  new Vuex.Store({
   state: {
     id: '',
     urls:{
-      serverURL: config.serverURL,
-      auctionURL: config.serverURL + config.auctionPrefix,
-      pouchURL: config.pouchURL,
+      serverURL: debug ? config.serverURL : location.protocol + '//' + location.host + "/",
+      auctionURL: debug ? config.serverURL + config.auctionPrefix: location.protocol + '//' + location.host + "/" + config.auctionPrefix,
       couchURL: config.couchURL,
       auctionPrefix: config.auctionPrefix,
       eventSource: config.eventSource,
-      databaseURL: `${config.serverURL}${config.databaseName}`
+      databaseURL: debug ? config.serverURL + config.databaseName : `${location.protocol + '//' + location.host + "/"}${config.databaseName}`
     },
     identification: {
       bidderID: '',
