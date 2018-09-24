@@ -6,10 +6,10 @@ import russian from '../translations/russian.js';
 import * as config from '../config.json';
 
 Vue.use(Vuex);
-// const debug = process.env.NODE_ENV !== 'production';
+const debug = process.env.NODE_ENV !== 'production';
 
 const store =  new Vuex.Store({
-  // strict: debug,
+  strict: debug,
   state: {
     id: '',
     urls:{
