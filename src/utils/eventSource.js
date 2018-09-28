@@ -58,17 +58,17 @@ export default {
         deleteCookie('auctions_loggedin');
         window.location.replace(`${component.$store.state.urls.auctionURL}/${component.$store.state.id}/logout`)
       })
-    this.evtSrc.addEventListener('Close', e => {
-      console.log('Close', e.data);
-      if (!this.isObserverNotifyCalled) {
-        component.$notify({
-          group: 'auth',
-          text: component.$t('You are an observer and cannot bid.'),
-          duration: -1
-        })
-        this.isObserverNotifyCalled = true
-      }
-    });
+      this.evtSrc.addEventListener('Close', e => {
+        console.log('Close', e.data);
+        if (!this.isObserverNotifyCalled) {
+          component.$notify({
+            group: 'auth',
+            text: component.$t('You are an observer and cannot bid.'),
+            duration: -1
+          })
+          this.isObserverNotifyCalled = true
+        }
+      });
       this.evtSrc.onerror = e => {
         console.log('Handle event source error', e);
         this.evtSrc.close()
