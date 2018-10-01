@@ -151,7 +151,6 @@ export default {
       minimalStep: null,
       dateOfStartRoundOrAuction: null, // TODO: rename to proper var. Example endTimerDate
       initialBidsArr: [],
-      terminatedStates: ['completed', 'canceled', 'redefined'],
       statusMessage: {
         active: {
           type: 'active',
@@ -226,6 +225,12 @@ export default {
     // init event-source
     if (EventSource.ableToSubscribe()) {
       EventSource.initialize(this)
+    } else {
+      component.$notify({
+        group: 'auth',
+        text: component.$t('You are an observer and cannot bid.'),
+        duration: -1
+      })
     }
   },
   beforeDestroy() {
@@ -257,9 +262,8 @@ export default {
             this.loginAllowed = false
             setTimeout(() => {this.loginAllowed = true}, (countdownSeconds - 900) * 1000)
           }
-          // TODO: logic to remove query params
         }
-        if (!this.isListeningOnChanges && this.currentStage >= 0 && this.terminatedStates.indexOf(this.state) === -1)
+        if (!this.isListeningOnChanges && this.currentStage >= 0 && this.$store.state.terminatedStates.indexOf(this.state) === -1)
           PouchDBSync.startSync(this)
       }).catch((e) => {
         // log error

@@ -20,12 +20,12 @@ const fillAuctionData = (context, data) => {
 const getAuctionRequest =  (context, id) =>{
   axios.get(`${context.$store.state.urls.databaseURL}/${id}`)
     .then(response => {
+      if (response.data.auction_type !== 'texas') {
+        router.push({name: 'errorAuctiontType'})}
       fillAuctionData(context, response.data)
-      // if (response.data.auction_type !== 'texas') {
-      //   router.push({name: 'errorAuctiontType'})}
-      //TODO:make after adding correct auction_type
       context.syncWithServerTime()
     }).catch(error => {
+      console.log(error)
       router.push({name: 'errorId'})
     })
 }
