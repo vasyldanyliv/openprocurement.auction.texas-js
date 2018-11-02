@@ -113,7 +113,6 @@ import generateUUID from "../utils/generateUUID"
 import PouchDBSync from '../utils/CouchPouch';
 import EventSource from '../utils/eventSource';
 import axios from 'axios'
-import {logMSG} from '../utils/getRequest'
 
 export default {
   components :{
@@ -238,7 +237,6 @@ export default {
     this.pouchDB = PouchDBSync.initialize(this)
     this.$store.commit('setAuctionUUID', this.id)
     getAuctionRequest(this, this.$store.state.id)
-    logMSG(window.dataLayer, this.$store.state)
   },
   mounted() {
     //check session id
